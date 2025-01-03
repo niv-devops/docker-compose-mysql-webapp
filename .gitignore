@@ -1,8 +1,9 @@
 # Python bytecode files
 __pycache__/
 
-# environment files
+# environment files and secrets
 .env
+*secret.yaml
 
 # Virtual environment
 .venv/

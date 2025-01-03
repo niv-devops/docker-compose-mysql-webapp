@@ -9,6 +9,7 @@ Both services run as non-root users.
 3. [Features](#features)
 4. [Stopping the Application](#stopping-the-application)
 5. [Troubleshooting & Managing the SQL Database](#troubleshooting--managing-the-sql-database)
+6. [Run on K8s Locally Using Minikube](#run-on-k8s-locally-using-minikube)
 
 ## Prerequisites
 - [Docker & Docker Compose](https://docs.docker.com/engine/install/)
@@ -80,3 +81,42 @@ USE office;              # Switch to the 'office' database
 SELECT * FROM employees;  # View data in the employees table
 ```
 
+## Run on K8's Locally Using Minikube
+
+To run this project with Kubernetes locally in Minikube cluster, follow these steps:
+
+1. **Start Minikube and configure it to use Docker daemon:**
+
+   ```bash
+    minikube start
+    eval $(minikube docker-env)
+    ```
+
+2. **Create or edit secret.yaml** so that it will match `.env` file, values in base64:
+
+    ```
+    echo -n "example" | base64
+    echo "ZXhhbXBsZQ==" | base64 -d # To decode the text
+    ```
+
+3. **Apply all K8's manifest files**:
+
+    ```bash
+    kubectl apply -f ./k8s/
+    ```
+
+4. **Check the resources status:**:
+
+    ```
+    kubectl get po
+    kubectl get svc
+    kubectl get secret
+    kubectl get cm
+    ```
+
+5. **Obtain the IP address and access the application** in your browser at:
+
+    ```
+    minikube ip
+    http://<your-minikube-ip>:30001
+    ```
