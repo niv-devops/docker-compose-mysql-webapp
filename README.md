@@ -23,7 +23,7 @@ Both services run as non-root users.
     cd docker-compose-mysql-webapp
     ```
 
-2. **Create a `.env` file in the project's root path** with the following:
+2. **Create or edit `.env` file in the project's root path** with the following:
 
     ```
     MYSQL_ROOT_PASSWORD=<your-root-password>
