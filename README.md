@@ -104,7 +104,9 @@ To run this project with Kubernetes locally in Minikube cluster, follow these st
     ```
     echo -n "example" | base64
     echo "ZXhhbXBsZQ==" | base64 -d # To decode the text
+    ```
     
+    ```
     apiVersion: v1
     kind: Secret
     metadata:
