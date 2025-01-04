@@ -34,7 +34,7 @@ Both services run as non-root users.
     ```
 
     * Note that any change when containers are running should be followed with:
-    
+
     ```
     docker compose down
     docker compose up -d --build
@@ -105,7 +105,9 @@ To run this project with Kubernetes locally in Minikube cluster, follow these st
     echo -n "example" | base64
     echo "ZXhhbXBsZQ==" | base64 -d # To decode the text
     ```
-    
+
+    Example `secret.yaml`:
+
     ```
     apiVersion: v1
     kind: Secret
