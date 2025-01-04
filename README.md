@@ -30,7 +30,14 @@ Both services run as non-root users.
     MYSQL_ROOT_PASSWORD=<your-root-password>
     MYSQL_USER=<non-root-user>
     MYSQL_PASSWORD=<non-root-password>
-    MYSQL_DATABASE=office
+    MYSQL_DATABASE=office # Please keep the name as it is
+    ```
+
+    * Note that any change when containers are running should be followed with:
+    
+    ```
+    docker compose down
+    docker compose up -d --build
     ```
 
 3. **Build and start the services** using Docker Compose:
@@ -92,11 +99,22 @@ To run this project with Kubernetes locally in Minikube cluster, follow these st
     eval $(minikube docker-env)
     ```
 
-2. **Create or edit secret.yaml** so that it will match `.env` file, values in base64:
+2. **Create or edit secret.yaml** like the `.env` file, but the values in base64:
 
     ```
     echo -n "example" | base64
     echo "ZXhhbXBsZQ==" | base64 -d # To decode the text
+    
+    apiVersion: v1
+    kind: Secret
+    metadata:
+      name: mysql-secret
+    type: Opaque
+    data:
+      MYSQL_ROOT_PASSWORD: cm9vdHBhc3M=
+      MYSQL_USER: c3FsdXNlcg==
+      MYSQL_PASSWORD: c3FscGFzcw==
+      MYSQL_DATABASE: b2ZmaWNl # Please keep the value as it is
     ```
 
 3. **Apply all K8's manifest files**:
@@ -119,4 +137,10 @@ To run this project with Kubernetes locally in Minikube cluster, follow these st
     ```
     minikube ip
     http://<your-minikube-ip>:30001
+    ```
+    
+6. **Cleanup** - Remove all resources with:
+
+    ```bash
+    kubectl delete -f ./k8s/
     ```

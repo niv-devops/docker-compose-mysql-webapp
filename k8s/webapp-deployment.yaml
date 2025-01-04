@@ -47,11 +47,4 @@ spec:
                 secretKeyRef:
                   name: mysql-secret
                   key: MYSQL_ROOT_PASSWORD
-          volumeMounts:
-            - name: init-db
-              mountPath: /docker-entrypoint-initdb.d
-      volumes:
-        - name: init-db
-          configMap:
-            name: init-sql-script
 
